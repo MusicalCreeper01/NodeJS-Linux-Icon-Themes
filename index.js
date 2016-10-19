@@ -29,7 +29,7 @@ function find_icon (theme, icon){
     var dirs = [];
     files.forEach(function(file){
         var filepath = path.join(iconset_path, file)
-        if(fs.lstatSync(filepath).isDirectory() && file.indexOf('cursors') <= -1){
+        if(fs.lstatSync(filepath).isDirectory() && file.indexOf('cursors') <= -1 && file.indexOf('x') > -1){
             dirs.push(path.parse(filepath).name);
         }
     });
