@@ -14,7 +14,8 @@ module.exports = function(l) {
 
     return {
         //file: file_icon,
-        find: find_icon,
+        find_icon: find_icon,
+        find: find,
         themes: get_themes
     }
 }
@@ -80,7 +81,45 @@ function get_themes (){
     return themes;
 }
 
+function find (icon){
+    var themes = get_themes();
+
+    var icons = [];
+
+    for(var key in themes) {
+        var theme_icons = find_icon(themes[key].name, icon);
+        if(!isEmpty(theme_icons))
+            icons.push(theme_icons);
+    }
+    return icons;
+}
+
 function file_icon (filepath){
     return find_icon
 
+}
+/*  http://stackoverflow.com/questions/4994201/is-object-empty  */
+function isEmpty(obj) {
+
+    // null and undefined are "empty"
+    if (obj == null) return true;
+
+    // Assume if it has a length property with a non-zero value
+    // that that property is correct.
+    if (obj.length > 0)    return false;
+    if (obj.length === 0)  return true;
+
+    // If it isn't an object at this point
+    // it is empty, but it can't be anything *but* empty
+    // Is it empty?  Depends on your application.
+    if (typeof obj !== "object") return true;
+
+    // Otherwise, does it have any properties of its own?
+    // Note that this doesn't handle
+    // toString and valueOf enumeration bugs in IE < 9
+    for (var key in obj) {
+        if (hasOwnProperty.call(obj, key)) return false;
+    }
+
+    return true;
 }
